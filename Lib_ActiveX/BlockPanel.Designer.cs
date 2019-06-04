@@ -1,6 +1,6 @@
 ﻿namespace Lib_ActiveX
 {
-    partial class Form1
+    partial class BlockPanel
     {
         /// <summary>
         /// Required designer variable.
@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(BlockPanel));
             this.axCogDisplay1 = new AxCognex.VisionPro.Interop.AxCogDisplay();
             this.cogToolBlockEditV21 = new Cognex.VisionPro.ToolBlock.CogToolBlockEditV2();
             ((System.ComponentModel.ISupportInitialize)(this.axCogDisplay1)).BeginInit();
@@ -39,32 +39,34 @@
             // 
             this.axCogDisplay1.Enabled = true;
             this.axCogDisplay1.Location = new System.Drawing.Point(43, 29);
+            this.axCogDisplay1.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.axCogDisplay1.Name = "axCogDisplay1";
             this.axCogDisplay1.OcxState = ((System.Windows.Forms.AxHost.State)(resources.GetObject("axCogDisplay1.OcxState")));
-            this.axCogDisplay1.Size = new System.Drawing.Size(192, 192);
+            this.axCogDisplay1.Size = new System.Drawing.Size(288, 288);
             this.axCogDisplay1.TabIndex = 0;
             // 
             // cogToolBlockEditV21
             // 
             this.cogToolBlockEditV21.AllowDrop = true;
             this.cogToolBlockEditV21.ContextMenuCustomizer = null;
-            this.cogToolBlockEditV21.Location = new System.Drawing.Point(12, 12);
-            this.cogToolBlockEditV21.MinimumSize = new System.Drawing.Size(489, 0);
+            this.cogToolBlockEditV21.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.cogToolBlockEditV21.Location = new System.Drawing.Point(0, 0);
+            this.cogToolBlockEditV21.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.cogToolBlockEditV21.MinimumSize = new System.Drawing.Size(734, 0);
             this.cogToolBlockEditV21.Name = "cogToolBlockEditV21";
             this.cogToolBlockEditV21.ShowNodeToolTips = true;
-            this.cogToolBlockEditV21.Size = new System.Drawing.Size(808, 410);
+            this.cogToolBlockEditV21.Size = new System.Drawing.Size(734, 607);
             this.cogToolBlockEditV21.SuspendElectricRuns = false;
             this.cogToolBlockEditV21.TabIndex = 1;
             // 
-            // Form1
+            // BlockPanel
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(284, 261);
+            this.ClientSize = new System.Drawing.Size(720, 607);
             this.Controls.Add(this.cogToolBlockEditV21);
             this.Controls.Add(this.axCogDisplay1);
-            this.Name = "Form1";
-            this.Text = "Form1";
+            this.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.Name = "BlockPanel";
+            this.Text = "BlockPanel";
             ((System.ComponentModel.ISupportInitialize)(this.axCogDisplay1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.cogToolBlockEditV21)).EndInit();
             this.ResumeLayout(false);

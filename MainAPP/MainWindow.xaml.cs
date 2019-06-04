@@ -10,18 +10,25 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using System.Windows.Navigation;
 using System.Windows.Shapes;
 
 namespace MainAPP
 {
     /// <summary>
-    /// Interaction logic for WindowTweak.xaml
+    /// Interaction logic for MainWindow.xaml
     /// </summary>
-    public partial class WindowTweak : Window
+    public partial class MainWindow : Window
     {
-        public WindowTweak()
+        private WindowTweak _windowTweak = new WindowTweak();
+        public MainWindow()
         {
             InitializeComponent();
+        }
+
+        private void _btnBlockForm_OnClick(object sender, RoutedEventArgs e)
+        {
+            _windowTweak.Show();
         }
     }
 }

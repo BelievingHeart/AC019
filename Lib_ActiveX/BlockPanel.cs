@@ -10,9 +10,9 @@ using System.Windows.Forms;
 
 namespace Lib_ActiveX
 {
-    public partial class Form1 : Form
+    public partial class BlockPanel : Panel
     {
-        public Form1()
+        public BlockPanel()
         {
             InitializeComponent();
         }
