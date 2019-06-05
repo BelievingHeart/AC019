@@ -28,22 +28,9 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(BlockPanel));
-            this.axCogDisplay1 = new AxCognex.VisionPro.Interop.AxCogDisplay();
             this.cogToolBlockEditV21 = new Cognex.VisionPro.ToolBlock.CogToolBlockEditV2();
-            ((System.ComponentModel.ISupportInitialize)(this.axCogDisplay1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.cogToolBlockEditV21)).BeginInit();
             this.SuspendLayout();
-            // 
-            // axCogDisplay1
-            // 
-            this.axCogDisplay1.Enabled = true;
-            this.axCogDisplay1.Location = new System.Drawing.Point(43, 29);
-            this.axCogDisplay1.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.axCogDisplay1.Name = "axCogDisplay1";
-            this.axCogDisplay1.OcxState = ((System.Windows.Forms.AxHost.State)(resources.GetObject("axCogDisplay1.OcxState")));
-            this.axCogDisplay1.Size = new System.Drawing.Size(288, 288);
-            this.axCogDisplay1.TabIndex = 0;
             // 
             // cogToolBlockEditV21
             // 
@@ -61,13 +48,10 @@
             // 
             // BlockPanel
             // 
-            this.ClientSize = new System.Drawing.Size(720, 607);
             this.Controls.Add(this.cogToolBlockEditV21);
-            this.Controls.Add(this.axCogDisplay1);
             this.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.Name = "BlockPanel";
+            this.Size = new System.Drawing.Size(720, 607);
             this.Text = "BlockPanel";
-            ((System.ComponentModel.ISupportInitialize)(this.axCogDisplay1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.cogToolBlockEditV21)).EndInit();
             this.ResumeLayout(false);
 
@@ -75,7 +59,6 @@
 
         #endregion
 
-        private AxCognex.VisionPro.Interop.AxCogDisplay axCogDisplay1;
         private Cognex.VisionPro.ToolBlock.CogToolBlockEditV2 cogToolBlockEditV21;
     }
 }
