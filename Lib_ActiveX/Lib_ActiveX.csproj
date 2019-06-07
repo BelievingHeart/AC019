@@ -44,6 +44,8 @@
     <Reference Include="Cognex.VisionPro.Core, Version=55.0.0.0, Culture=neutral, PublicKeyToken=ef0f902af9dee505">
       <Private>False</Private>
     </Reference>
+    <Reference Include="Cognex.VisionPro.CorePlus, Version=55.0.0.0, Culture=neutral, PublicKeyToken=ef0f902af9dee505" />
+    <Reference Include="Cognex.VisionPro.Display.Controls, Version=55.0.0.0, Culture=neutral, PublicKeyToken=ef0f902af9dee505, processorArchitecture=AMD64" />
     <Reference Include="Cognex.VisionPro.ToolGroup, Version=55.0.0.0, Culture=neutral, PublicKeyToken=ef0f902af9dee505">
       <Private>False</Private>
     </Reference>
@@ -68,10 +70,19 @@
     <Compile Include="BlockPanel.Designer.cs">
       <DependentUpon>BlockPanel.cs</DependentUpon>
     </Compile>
+    <Compile Include="DisplayPanel.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="DisplayPanel.Designer.cs">
+      <DependentUpon>DisplayPanel.cs</DependentUpon>
+    </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="BlockPanel.resx">
       <DependentUpon>BlockPanel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="DisplayPanel.resx">
+      <DependentUpon>DisplayPanel.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

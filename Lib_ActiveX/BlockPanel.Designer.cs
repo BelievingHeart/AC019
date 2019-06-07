@@ -28,38 +28,38 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.cogToolBlockEditV21 = new Cognex.VisionPro.ToolBlock.CogToolBlockEditV2();
-            ((System.ComponentModel.ISupportInitialize)(this.cogToolBlockEditV21)).BeginInit();
+            this.BlockEdit = new Cognex.VisionPro.ToolBlock.CogToolBlockEditV2();
+            ((System.ComponentModel.ISupportInitialize)(this.BlockEdit)).BeginInit();
             this.SuspendLayout();
             // 
-            // cogToolBlockEditV21
+            // BlockEdit
             // 
-            this.cogToolBlockEditV21.AllowDrop = true;
-            this.cogToolBlockEditV21.ContextMenuCustomizer = null;
-            this.cogToolBlockEditV21.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.cogToolBlockEditV21.Location = new System.Drawing.Point(0, 0);
-            this.cogToolBlockEditV21.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.cogToolBlockEditV21.MinimumSize = new System.Drawing.Size(734, 0);
-            this.cogToolBlockEditV21.Name = "cogToolBlockEditV21";
-            this.cogToolBlockEditV21.ShowNodeToolTips = true;
-            this.cogToolBlockEditV21.Size = new System.Drawing.Size(734, 607);
-            this.cogToolBlockEditV21.SuspendElectricRuns = false;
-            this.cogToolBlockEditV21.TabIndex = 1;
+            this.BlockEdit.AllowDrop = true;
+            this.BlockEdit.ContextMenuCustomizer = null;
+            this.BlockEdit.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.BlockEdit.Location = new System.Drawing.Point(0, 0);
+            this.BlockEdit.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.BlockEdit.MinimumSize = new System.Drawing.Size(734, 0);
+            this.BlockEdit.Name = "BlockEdit";
+            this.BlockEdit.ShowNodeToolTips = true;
+            this.BlockEdit.Size = new System.Drawing.Size(734, 607);
+            this.BlockEdit.SuspendElectricRuns = false;
+            this.BlockEdit.TabIndex = 1;
             // 
             // BlockPanel
             // 
-            this.Controls.Add(this.cogToolBlockEditV21);
+            this.Controls.Add(this.BlockEdit);
             this.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.Size = new System.Drawing.Size(720, 607);
             this.Text = "BlockPanel";
-            ((System.ComponentModel.ISupportInitialize)(this.cogToolBlockEditV21)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.BlockEdit)).EndInit();
             this.ResumeLayout(false);
 
         }
 
         #endregion
 
-        private Cognex.VisionPro.ToolBlock.CogToolBlockEditV2 cogToolBlockEditV21;
+        public Cognex.VisionPro.ToolBlock.CogToolBlockEditV2 BlockEdit;
     }
 }
 

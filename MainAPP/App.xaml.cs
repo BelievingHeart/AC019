@@ -2,9 +2,12 @@
 using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
+using Cognex.VisionPro.Display;
+using Cognex.VisionPro.ToolBlock;
 
 namespace MainAPP
 {
@@ -13,5 +16,27 @@ namespace MainAPP
     /// </summary>
     public partial class App : Application
     {
+        public CogToolBlock Block1, Block2;
+        public string VppDir = Directory.GetParent(Directory.GetCurrentDirectory()).Parent.Parent.Parent.FullName + "/VPP";
+        public string VppBlock1, VppBlock2;
+
+        public CogDisplay Display1, Display2;
+
+
+        // Global resources can be accessed via App.Current.
+        public new static App Current
+        {
+            get
+            {
+                return Application.Current as App;
+            }
+        }
+
+        private void Application_Startup(object sender, StartupEventArgs e)
+        {
+            VppBlock1 = Path.Combine(VppDir, "BlockLeft.vpp");
+            VppBlock2 = Path.Combine(VppDir, "BlockRight.vpp");
+        }
+
     }
 }
