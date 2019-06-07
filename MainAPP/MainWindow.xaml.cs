@@ -1,19 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Forms.Integration;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 using AxCognex.VisionPro.Interop;
+using CognexImageFile;
 
 namespace MainAPP
 {
@@ -22,20 +12,36 @@ namespace MainAPP
     /// </summary>
     public partial class MainWindow : Window
     {
-        private AxCognex.VisionPro.Interop.AxCogDisplay _display1 = new AxCogDisplay(), _display2 = new AxCogDisplay();
+        private AxCognex.VisionPro.Interop.AxCogDisplay _display1, _display2;
         private WindowsFormsHost _hostDisplay1, _hostDisplay2;
         private WindowTweak _windowTweak1 = new WindowTweak(), _windowTweak2 = new WindowTweak();
-        private Button _btnRun1= new Button(){Content = ""}, _btnRun2 = new Button(){Content = ""};
+        private Button _btnRun1 = new Button() {Content = ""}, _btnRun2 = new Button() {Content = ""};
+
         public MainWindow()
         {
             InitializeComponent();
 
             // 
-            _btnRun1.MouseDoubleClick += ShowWindowTweak1;
+            _btnRun1.MouseDoubleClick += ShowWindowTweak;
+            _btnRun2.MouseDoubleClick += ShowWindowTweak;
 
             // init hosts
-            _hostDisplay1 = new WindowsFormsHost(){Child = _display1};
-            _hostDisplay2 = new WindowsFormsHost(){Child = _display2};
+            _display1 = new AxCogDisplay();
+//            _display1.BeginInit();
+//            _display1.CreateControl();
+//            _display1.HorizontalScrollBar = false;
+//            _display1.VerticalScrollBar = false;
+//            _display1.EndInit();
+
+            _display2 = new AxCogDisplay();
+//            _display2.BeginInit();
+            _display2.CreateControl();
+//            _display2.HorizontalScrollBar = false;
+//            _display2.VerticalScrollBar = false;
+//            _display2.EndInit();
+
+            _hostDisplay1 = new WindowsFormsHost() {Child = _display1};
+            _hostDisplay2 = new WindowsFormsHost() {Child = _display2};
 
             // set layouts of the main window
             Grid.SetColumn(_hostDisplay1, 0);
@@ -54,25 +60,39 @@ namespace MainAPP
             Grid_Main.Children.Add(_btnRun2);
         }
 
-        private void ShowWindowTweak1(object sender, EventArgs e)
+        private void ShowWindowTweak(object sender, EventArgs e)
         {
-            _windowTweak1.Show();
+            var me = (Button) sender;
+            if (me == _btnRun1)
+            {
+                _windowTweak1.ShowDialog();
+            }
+            else
+            {
+                _windowTweak2.ShowDialog();
+            }
         }
 
-        private void OnLoaded(object sender, RoutedEventArgs e)
-        {
-     
-
-        }
-
-        private void _btnBlockForm_OnClick(object sender, RoutedEventArgs e)
-        {
-        }
 
         protected override void OnClosed(EventArgs e)
         {
             base.OnClosed(e);
             Application.Current.Shutdown();
+        }
+
+        private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+        }
+
+        private void Window_Loaded(object sender, RoutedEventArgs e)
+        {
+            var imagePath = @"C:\Users\rocke\Desktop\项目\AC019\样品\images\01-00-00.bmp";
+            CogImageFile imageFile = new CogImageFile();
+            imageFile.Open(imagePath, CogImageFileModeConstants.cogImageFileModeRead);
+            _display1.CreateControl();
+            _display1.Image = imageFile[0]; 
+            _display1.HorizontalScrollBar = false;
+            _display1.AutoFit = true;
         }
     }
 }
