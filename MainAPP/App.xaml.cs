@@ -18,10 +18,7 @@ namespace MainAPP
     {
         public CogToolBlock Block1, Block2;
         public string VppDir = Directory.GetParent(Directory.GetCurrentDirectory()).Parent.Parent.Parent.FullName + "/VPP";
-        public string VppBlock1, VppBlock2;
-
-        public CogDisplay Display1, Display2;
-
+        public string VppBlockPath1, VppBlockPath2;
 
         // Global resources can be accessed via App.Current.
         public new static App Current
@@ -34,8 +31,8 @@ namespace MainAPP
 
         private void Application_Startup(object sender, StartupEventArgs e)
         {
-            VppBlock1 = Path.Combine(VppDir, "BlockLeft.vpp");
-            VppBlock2 = Path.Combine(VppDir, "BlockRight.vpp");
+            VppBlockPath1 = Path.Combine(VppDir, "BlockLeft.vpp");
+            VppBlockPath2 = Path.Combine(VppDir, "BlockRight.vpp");
         }
 
     }

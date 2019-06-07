@@ -4,6 +4,7 @@ using System.Windows.Controls;
 using System.Windows.Documents;
 using System.Windows.Forms.Integration;
 using Cognex.VisionPro;
+using Cognex.VisionPro.Display;
 using Cognex.VisionPro.ImageFile;
 using Cognex.VisionPro.ToolBlock;
 //using CognexImageFile;
@@ -18,20 +19,22 @@ namespace MainAPP
     {
        
         private WindowTweak _windowTweak1, _windowTweak2;
+        public CogDisplay Display1;
+        public CogDisplay Display2;
 
         public MainWindow()
         {
             InitializeComponent();
 
             LoadVpps();
-            _windowTweak1 = new WindowTweak(){ToolBlock = App.Current.Block1};
-            _windowTweak2 = new WindowTweak(){ToolBlock = App.Current.Block2};
+            _windowTweak1 = new WindowTweak(){ToolBlock = App.Current.Block1, VppPath = App.Current.VppBlockPath1};
+            _windowTweak2 = new WindowTweak(){ToolBlock = App.Current.Block2, VppPath = App.Current.VppBlockPath2};
         }
 
         private void ShowWindowTweak(object sender, EventArgs e)
         {
-            var me = (Button) sender;
-            if (me == BtnRun1)
+            var me = (CogDisplay) sender;
+            if (me == Display1)
             {
                 _windowTweak1.ShowDialog();
             }
@@ -55,40 +58,31 @@ namespace MainAPP
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
             // Init displays
-            App.Current.Display1 = ((DisplayPanel)Host1.Child).display;
-            App.Current.Display1.CreateControl();
-            App.Current.Display1.HorizontalScrollBar = false;
-            App.Current.Display1.VerticalScrollBar = false;
-            App.Current.Display1.AutoFit = true;
-
-            App.Current.Display2 = ((DisplayPanel)Host2.Child).display;
-            App.Current.Display2.CreateControl();
-            App.Current.Display2.HorizontalScrollBar = false;
-            App.Current.Display2.VerticalScrollBar = false;
-            App.Current.Display2.AutoFit = true;
-
-            // 
-      
+            InitDisplay(((DisplayPanel) Host1.Child).Display, out Display1);
+            InitDisplay(((DisplayPanel)Host2.Child).Display, out Display2);
         }
+
+        private void InitDisplay(CogDisplay displaySrc, out CogDisplay displayDst)
+        {
+            displayDst = displaySrc;
+            displayDst.CreateControl();
+            displayDst.HorizontalScrollBar = false;
+            displayDst.VerticalScrollBar = false;
+            displayDst.AutoFit = true;
+            displayDst.DoubleClick += ShowWindowTweak;
+        }
+
 
         private void LoadVpps()
         {
-            App.Current.Block1 = (CogToolBlock) CogSerializer.LoadObjectFromFile(App.Current.VppBlock1);
-            App.Current.Block2 = (CogToolBlock) CogSerializer.LoadObjectFromFile(App.Current.VppBlock2);
+            App.Current.Block1 = (CogToolBlock) CogSerializer.LoadObjectFromFile(App.Current.VppBlockPath1);
+            App.Current.Block2 = (CogToolBlock) CogSerializer.LoadObjectFromFile(App.Current.VppBlockPath2);
         }
 
 
         private void RunManually(object sender, RoutedEventArgs e)
         {
-            var me = (Button)sender;
-            if (me == BtnRun1)
-            {
-                _windowTweak1.ShowDialog();
-            }
-            else
-            {
-                _windowTweak2.ShowDialog();
-            }
+            throw new NotImplementedException();
         }
 
     }

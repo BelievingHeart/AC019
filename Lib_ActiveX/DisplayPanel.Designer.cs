@@ -1,4 +1,6 @@
-﻿namespace Lib_ActiveX
+﻿using Cognex.VisionPro.Display;
+
+namespace Lib_ActiveX
 {
     partial class DisplayPanel
     {
@@ -30,39 +32,39 @@
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(DisplayPanel));
-            this.display = new Cognex.VisionPro.Display.CogDisplay();
-            ((System.ComponentModel.ISupportInitialize)(this.display)).BeginInit();
+            this.Display = new Cognex.VisionPro.Display.CogDisplay();
+            ((System.ComponentModel.ISupportInitialize)(this.Display)).BeginInit();
             this.SuspendLayout();
             // 
             // display
             // 
-            this.display.ColorMapLowerClipColor = System.Drawing.Color.Black;
-            this.display.ColorMapLowerRoiLimit = 0D;
-            this.display.ColorMapPredefined = Cognex.VisionPro.Display.CogDisplayColorMapPredefinedConstants.None;
-            this.display.ColorMapUpperClipColor = System.Drawing.Color.Black;
-            this.display.ColorMapUpperRoiLimit = 1D;
-            this.display.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.display.Location = new System.Drawing.Point(0, 0);
-            this.display.MouseWheelMode = Cognex.VisionPro.Display.CogDisplayMouseWheelModeConstants.Zoom1;
-            this.display.MouseWheelSensitivity = 1D;
-            this.display.Name = "display";
-            this.display.OcxState = ((System.Windows.Forms.AxHost.State)(resources.GetObject("display.OcxState")));
-            this.display.Size = new System.Drawing.Size(284, 261);
-            this.display.TabIndex = 0;
+            this.Display.ColorMapLowerClipColor = System.Drawing.Color.Black;
+            this.Display.ColorMapLowerRoiLimit = 0D;
+            this.Display.ColorMapPredefined = Cognex.VisionPro.Display.CogDisplayColorMapPredefinedConstants.None;
+            this.Display.ColorMapUpperClipColor = System.Drawing.Color.Black;
+            this.Display.ColorMapUpperRoiLimit = 1D;
+            this.Display.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.Display.Location = new System.Drawing.Point(0, 0);
+            this.Display.MouseWheelMode = Cognex.VisionPro.Display.CogDisplayMouseWheelModeConstants.Zoom1;
+            this.Display.MouseWheelSensitivity = 1D;
+            this.Display.Name = "display";
+            this.Display.OcxState = ((System.Windows.Forms.AxHost.State)(resources.GetObject("display.OcxState")));
+            this.Display.Size = new System.Drawing.Size(284, 261);
+            this.Display.TabIndex = 0;
             // 
             // DisplayPanel
             // 
             this.ClientSize = new System.Drawing.Size(284, 261);
-            this.Controls.Add(this.display);
+            this.Controls.Add(this.Display);
             this.Name = "DisplayPanel";
             this.Text = "DisplayPanel";
-            ((System.ComponentModel.ISupportInitialize)(this.display)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.Display)).EndInit();
             this.ResumeLayout(false);
 
         }
 
         #endregion
 
-        public Cognex.VisionPro.Display.CogDisplay display;
+        public CogDisplay Display { get; set; }
     }
 }

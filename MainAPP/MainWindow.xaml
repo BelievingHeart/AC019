@@ -22,12 +22,13 @@
 
         <WindowsFormsHost Name="Host2" Grid.Column="0" Grid.Row="1">
             <WindowsFormsHost.Child>
-                <libActiveX:DisplayPanel></libActiveX:DisplayPanel>
+                <libActiveX:DisplayPanel>
+                </libActiveX:DisplayPanel>
             </WindowsFormsHost.Child>
         </WindowsFormsHost>
 
-        <Button Name="BtnRun1" Grid.Column="1" Grid.Row="0" MouseDoubleClick="ShowWindowTweak" Click="RunManually"></Button>
-        <Button Name="BtnRun2" Grid.Column="1" Grid.Row="1" MouseDoubleClick="ShowWindowTweak" Click="RunManually"></Button>
+        <Button Name="BtnRun1" Grid.Column="1" Grid.Row="0" Click="RunManually"></Button>
+        <Button Name="BtnRun2" Grid.Column="1" Grid.Row="1" Click="RunManually"></Button>
 
     </Grid>
 </Window>
