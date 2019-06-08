@@ -10,6 +10,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MainAPP", "MainAPP\MainAPP.
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Lib_ActiveX", "Lib_ActiveX\Lib_ActiveX.csproj", "{C2610249-4C0C-4BDA-88D7-73DF6FCE75F7}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Lib_MeasurementUtilities", "..\..\I2\下料CCD_I2Helper\SLN\Lib_MeasurementUtilities\Lib_MeasurementUtilities.csproj", "{2E9F578A-DFCE-4456-91FB-ABFFAAB3D7D0}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -24,6 +26,10 @@ Global
 		{C2610249-4C0C-4BDA-88D7-73DF6FCE75F7}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C2610249-4C0C-4BDA-88D7-73DF6FCE75F7}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C2610249-4C0C-4BDA-88D7-73DF6FCE75F7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2E9F578A-DFCE-4456-91FB-ABFFAAB3D7D0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2E9F578A-DFCE-4456-91FB-ABFFAAB3D7D0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2E9F578A-DFCE-4456-91FB-ABFFAAB3D7D0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2E9F578A-DFCE-4456-91FB-ABFFAAB3D7D0}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

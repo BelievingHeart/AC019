@@ -16,5 +16,10 @@ namespace Lib_ActiveX
         {
             InitializeComponent();
         }
+
+        private void cogRecordDisplay1_Enter(object sender, EventArgs e)
+        {
+
+        }
     }
 }

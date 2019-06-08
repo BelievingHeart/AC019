@@ -16,7 +16,6 @@ namespace MainAPP
     /// </summary>
     public partial class App : Application
     {
-        public CogToolBlock Block1, Block2;
         public string VppDir = Directory.GetParent(Directory.GetCurrentDirectory()).Parent.Parent.Parent.FullName + "/VPP";
         public string VppBlockPath1, VppBlockPath2;
 

@@ -55,7 +55,7 @@ namespace MainAPP
             }
         }
 
-        private void ButtonBase_OnClick(object sender, RoutedEventArgs e)
+        private void ButtonClose_Click(object sender, RoutedEventArgs e)
         {
             var SaveDecision = MessageBox.Show("是否保存?", "退出", MessageBoxButton.YesNo, MessageBoxImage.Question,
                 MessageBoxResult.No);

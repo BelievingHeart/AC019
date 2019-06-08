@@ -9,8 +9,7 @@
             <RowDefinition Height="*"></RowDefinition>
         </Grid.RowDefinitions>
 
-        <Button Grid.Row="0" Content="关闭" Click="ButtonBase_OnClick"></Button>
-
+        <Button Grid.Row="0" Content="关闭" Click="ButtonClose_Click"></Button>
         <WindowsFormsHost Grid.Row="1" Name="Host">
             <WindowsFormsHost.Child>
                 <libActiveX:BlockPanel></libActiveX:BlockPanel>
