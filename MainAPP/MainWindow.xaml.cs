@@ -1,22 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics.Eventing.Reader;
 using System.IO;
-using System.Threading;
-using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Documents;
-using System.Windows.Forms.Integration;
-using System.Windows.Media;
-using System.Windows.Threading;
-using Cognex.VisionPro;
-using Cognex.VisionPro.Display;
-using Cognex.VisionPro.ImageFile;
-using Cognex.VisionPro.ImageProcessing;
-using Cognex.VisionPro.ToolBlock;
-//using CognexImageFile;
-using Lib_ActiveX;
 using Lib_CognexPanels;
 using Lib_MeasurementUtilities;
 
@@ -42,6 +27,7 @@ namespace MainAPP
         protected override void OnClosed(EventArgs e)
         {
             base.OnClosed(e);
+            LeiSai.Disconnet();
             Application.Current.Shutdown();
         }
 
@@ -67,6 +53,7 @@ namespace MainAPP
                 Path.Combine(VppDir, "BlockRight.vpp"),
                 BtnRun2);
 
+            
         }
 
 

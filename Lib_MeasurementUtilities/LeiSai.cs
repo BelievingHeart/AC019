@@ -1,6 +1,4 @@
 ﻿using System;
-using System.ComponentModel;
-using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 using System.Threading;
 using System.Threading.Tasks;
@@ -93,6 +91,11 @@ namespace Lib_MeasurementUtilities
         public void StartListening()
         {
             _timer.Start();
+        }
+
+        public static void Disconnet()
+        {
+            IOC0640.ioc_board_close();
         }
     }
 

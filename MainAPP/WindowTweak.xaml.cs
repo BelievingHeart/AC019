@@ -4,7 +4,6 @@ using System.Runtime.Serialization.Formatters.Binary;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Forms.Integration;
 using System.Windows.Interop;
 using System.Windows.Media;
 using Cognex.VisionPro;
@@ -43,14 +42,6 @@ namespace MainAPP
         public WindowTweak(LeiSai leiSai, DataLogger dataLogger, CogRecordDisplay recordDisplay, string vppPath,
             Button btnRunManually, ResultCategories resultCategories = ResultCategories.OK_NG)
         {
-            InitializeComponent();
-
-            _leiSai = leiSai;
-            _leiSai.Triggered += LeiSaiOnTriggered;
-            _leiSai.StartListening();
-
-            _dataLogger = dataLogger;
-
             // set up style of recordDisplay
             _recordDisplay = recordDisplay;
             _recordDisplay.CreateControl();
@@ -59,13 +50,24 @@ namespace MainAPP
             _recordDisplay.HorizontalScrollBar = false;
             _recordDisplay.DoubleClick += (sender, args) => ShowDialog();
 
-            _vppPath = vppPath;
-            _toolBlock = (CogToolBlock) CogSerializer.LoadObjectFromFile(_vppPath, typeof(BinaryFormatter));
+            _resultCategories = resultCategories;
 
+            // disable button before vpp is loaded
             _btnRunManually = btnRunManually;
             _btnRunManually.Click += BtnRunOnClick;
+            _btnRunManually.IsEnabled = false;
 
-            _resultCategories = resultCategories;
+            _vppPath = vppPath;
+
+            // vpp loaded here
+            InitializeComponent();
+
+            // Triggered can only be subscribed after vpp is loaded
+            _leiSai = leiSai;
+            _leiSai.Triggered += LeiSaiOnTriggered;
+            _leiSai.StartListening();
+
+            _dataLogger = dataLogger;
         }
 
 
@@ -103,13 +105,15 @@ namespace MainAPP
         }
 
 
-        private void Window_Loaded(object sender, RoutedEventArgs e)
+        private async void Window_Loaded(object sender, RoutedEventArgs e)
         {
             // Disable close button
             var hwnd = new WindowInteropHelper(this).Handle;
             SetWindowLong(hwnd, GWL_STYLE, GetWindowLong(hwnd, GWL_STYLE) & ~WS_SYSMENU);
 
             var blockEdit = ((BlockPanel) Host.Child).BlockEdit;
+ 
+
             blockEdit.Subject = _toolBlock;
         }
 
@@ -167,6 +171,40 @@ namespace MainAPP
             _dataLogger.CleanOutdatedFiles();
         }
 
+        private static void CloseCognexCamera(CogToolBlock toolblock)
+        {
+            if (toolblock == null) return;
+
+            for (int i = 0; i < toolblock.Tools.Count; i++)
+            {
+                if (toolblock.Tools[i] is CogAcqFifoTool)
+                {
+                    var fifo = (CogAcqFifoTool)toolblock.Tools[i];
+                    if (fifo.Operator != null && fifo.Operator.FrameGrabber != null)
+                    {
+                        fifo.Operator.FrameGrabber.Disconnect(false);
+                    }
+                }
+                else if (toolblock.Tools[i] is CogToolBlock)
+                {
+                    CogToolBlock tb = (CogToolBlock)toolblock.Tools[i];
+                    CloseCognexCamera(tb);
+                }
+            }
+
+        }
+
+        private void Window_Closed(object sender, EventArgs e)
+        {
+            CloseCognexCamera(_toolBlock);
+        }
+
+        private async void Window_Initialized(object sender, EventArgs e)
+        {
+            _toolBlock = await Task.Run(() =>
+                (CogToolBlock)CogSerializer.LoadObjectFromFile(_vppPath, typeof(BinaryFormatter)));
+            _btnRunManually.IsEnabled = true;
+        }
     }
 
     public enum ResultCategories
