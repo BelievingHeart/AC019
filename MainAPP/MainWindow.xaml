@@ -29,8 +29,8 @@
             </WindowsFormsHost.Child>
         </WindowsFormsHost>
 
-        <Button Name="BtnRun1" Grid.Column="1" Grid.Row="0" Click="RunManually"></Button>
-        <Button Name="BtnRun2" Grid.Column="1" Grid.Row="1" Click="RunManually"></Button>
+        <Button Name="BtnRun1" Grid.Column="1" Grid.Row="0"></Button>
+        <Button Name="BtnRun2" Grid.Column="1" Grid.Row="1"></Button>
 
     </Grid>
 </Window>

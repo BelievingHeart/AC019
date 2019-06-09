@@ -16,9 +16,7 @@ namespace MainAPP
     /// </summary>
     public partial class App : Application
     {
-        public string VppDir = Directory.GetParent(Directory.GetCurrentDirectory()).Parent.Parent.Parent.FullName + "/VPP";
-        public string VppBlockPath1, VppBlockPath2;
-
+        
         // Global resources can be accessed via App.Current.
         public new static App Current
         {
@@ -30,8 +28,7 @@ namespace MainAPP
 
         private void Application_Startup(object sender, StartupEventArgs e)
         {
-            VppBlockPath1 = Path.Combine(VppDir, "BlockLeft.vpp");
-            VppBlockPath2 = Path.Combine(VppDir, "BlockRight.vpp");
+
         }
 
     }
