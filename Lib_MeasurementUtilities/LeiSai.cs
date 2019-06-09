@@ -1,4 +1,5 @@
-﻿using System;
+﻿
+using System;
 using System.Runtime.InteropServices;
 using System.Threading;
 using System.Threading.Tasks;
@@ -12,7 +13,7 @@ namespace Lib_MeasurementUtilities
         FallingEdge
     }
 
-    public class LeiSai 
+    public class LeiSai
     {
         private readonly ushort _bitIn, _bitOutOk, _bitOutNg, _bitOutNoProduct;
         private readonly int _durationSleep = 100;
@@ -63,7 +64,7 @@ namespace Lib_MeasurementUtilities
             if (currentState == _triggeredState) OnTriggered(EventArgs.Empty);
         }
 
-        private async Task ReportBack(ushort outBit)
+        private async Task ReportBackAsync(ushort outBit)
         {
             await Task.Run(() =>
             {
@@ -75,17 +76,39 @@ namespace Lib_MeasurementUtilities
 
         public async Task ReportOKAsync()
         {
-            await ReportBack(_bitOutOk);
+            await ReportBackAsync(_bitOutOk);
         }
 
         public async Task ReportNGAsync()
         {
-            await ReportBack(_bitOutNg);
+            await ReportBackAsync(_bitOutNg);
         }
 
         public async Task ReportNoProductAsync()
         {
-            await ReportBack(_bitOutNoProduct);
+            await ReportBackAsync(_bitOutNoProduct);
+        }
+
+        private void ReportBack(ushort outBit)
+        {
+            IOC0640.ioc_write_outbit(0, outBit, 0);
+            Thread.Sleep(_durationSleep);
+            IOC0640.ioc_write_outbit(0, outBit, 1);
+        }
+
+        public void ReportOK()
+        {
+            ReportBack(_bitOutOk);
+        }
+
+        public void ReportNG()
+        {
+            ReportBack(_bitOutNg);
+        }
+
+        public void ReportNoProduct()
+        {
+            ReportBack(_bitOutNoProduct);
         }
 
         public void StartListening()

@@ -1,11 +1,13 @@
 ﻿using System;
 using System.Runtime.InteropServices;
 using System.Runtime.Serialization.Formatters.Binary;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Interop;
 using System.Windows.Media;
+using System.Windows.Threading;
 using Cognex.VisionPro;
 using Cognex.VisionPro.PMAlign;
 using Cognex.VisionPro.ToolBlock;
@@ -30,6 +32,8 @@ namespace MainAPP
         private DataLogger _dataLogger;
         private CogRecordDisplay _recordDisplay;
         private Button _btnRunManually;
+        private AutoResetEvent cond_ReadyToRun = new AutoResetEvent(false);
+        private CancellationTokenSource _cts = new CancellationTokenSource();
 
         // Disable close button
         private const int GWL_STYLE = -16;
@@ -64,27 +68,30 @@ namespace MainAPP
 
             // Triggered can only be subscribed after vpp is loaded
             _leiSai = leiSai;
-            _leiSai.Triggered += LeiSaiOnTriggered;
+            _leiSai.Triggered += (sender, args) => cond_ReadyToRun.Set();
             _leiSai.StartListening();
 
             _dataLogger = dataLogger;
+
+            Task.Factory.StartNew(Execute, _cts.Token, TaskCreationOptions.LongRunning, TaskScheduler.Default);
+
         }
 
 
 
-        private async Task SubmitResultAsync(ResultType result)
+        private void SubmitResult(ResultType result)
         {
             switch (result)
             {
-                case ResultType.OK: await _leiSai.ReportOKAsync(); break;
-                case ResultType.NG: await _leiSai.ReportNGAsync(); break;
-                case ResultType.NOPORDUCT: await _leiSai.ReportNoProductAsync(); break;
+                case ResultType.OK: _leiSai.ReportOK(); break;
+                case ResultType.NG: _leiSai.ReportNG(); break;
+                case ResultType.NOPORDUCT: _leiSai.ReportNoProduct(); break;
                 default:
                     throw new ArgumentOutOfRangeException("result", result, null);
             }
         }
 
- 
+
         private void RefreshDisplay()
         {
             _recordDisplay.Record = _toolBlock.CreateLastRunRecord().SubRecords["CogIPOneImageTool1.OutputImage"];
@@ -97,7 +104,7 @@ namespace MainAPP
 
             if (_resultCategories == ResultCategories.OK_NG_NOPRODUCT)
             {
-                var alignTool = (CogPMAlignTool) _toolBlock.Tools["判断有无料"];
+                var alignTool = (CogPMAlignTool)_toolBlock.Tools["判断有无料"];
                 if (alignTool.Results.Count == 0) return ResultType.NOPORDUCT;
             }
 
@@ -105,15 +112,13 @@ namespace MainAPP
         }
 
 
-        private async void Window_Loaded(object sender, RoutedEventArgs e)
+        private void Window_Loaded(object sender, RoutedEventArgs e)
         {
             // Disable close button
             var hwnd = new WindowInteropHelper(this).Handle;
             SetWindowLong(hwnd, GWL_STYLE, GetWindowLong(hwnd, GWL_STYLE) & ~WS_SYSMENU);
 
-            var blockEdit = ((BlockPanel) Host.Child).BlockEdit;
- 
-
+            var blockEdit = ((BlockPanel)Host.Child).BlockEdit;
             blockEdit.Subject = _toolBlock;
         }
 
@@ -140,18 +145,6 @@ namespace MainAPP
                 TrySaveVpp();
             }
             Hide();
-        }
-
-        private async void LeiSaiOnTriggered(object sender, EventArgs e)
-        {
-            var result = await Task.Run(() => RunBlock());
-            await SubmitResultAsync(result);
-
-            _btnRunManually.Background = result == ResultType.OK ? Brushes.Green : result == ResultType.NG ? Brushes.Red : Brushes.Yellow;
-            // refresh display
-            RefreshDisplay();
-            // Log measurements
-            LogMeasurements();
         }
 
         private void BtnRunOnClick(object sender, RoutedEventArgs e)
@@ -204,6 +197,29 @@ namespace MainAPP
             _toolBlock = await Task.Run(() =>
                 (CogToolBlock)CogSerializer.LoadObjectFromFile(_vppPath, typeof(BinaryFormatter)));
             _btnRunManually.IsEnabled = true;
+        }
+
+        private void Execute()
+        {
+
+            while (!_cts.Token.IsCancellationRequested)
+            {
+                cond_ReadyToRun.WaitOne();
+
+                var result = RunBlock();
+                LogMeasurements();
+
+                Application.Current.Dispatcher.BeginInvoke(new Action(() =>
+                {
+                    _btnRunManually.Background = result == ResultType.OK ? Brushes.Green :
+                        result == ResultType.NG ? Brushes.Red : Brushes.Yellow;
+                    // refresh display
+                    RefreshDisplay();
+                }), DispatcherPriority.Normal);
+
+                SubmitResult(result);
+            }
+
         }
     }
 

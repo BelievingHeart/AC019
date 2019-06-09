@@ -1,4 +1,5 @@
 ﻿using System.Runtime.InteropServices;
+using System.Threading;
 using System.Windows;
 
 namespace MainAPP
@@ -8,6 +9,7 @@ namespace MainAPP
     /// </summary>
     public partial class App : Application
     {
+        private Mutex _appMutex;
 
         // Global resources can be accessed via App.Current.
         public new static App Current
@@ -17,25 +19,17 @@ namespace MainAPP
 
         private void Application_Startup(object sender, StartupEventArgs e)
         {
-//            string guid = GetGuid();
-//            using (Mutex mutex = new Mutex(false, "Global\\" + guid))
-//            {
-//                if (!mutex.WaitOne(0, false))
-//                {
-//                    MessageBox.Show("程序已运行");
-//                    
-//                }
-//            }
+            bool aIsNewInstance; 
+            _appMutex = new Mutex(true, "AC019折料机CCD测量应用", out aIsNewInstance);
+            if (!aIsNewInstance)
+            {
+                MessageBox.Show("CCD程序已运行");
+                App.Current.Shutdown();
+            }
 
 
         }
 
-        private static string GetGuid()
-        {
-            var assembly = typeof(Application).Assembly;
-            var attribute = (GuidAttribute)assembly.GetCustomAttributes(typeof(GuidAttribute), true)[0];
-            return attribute.Value;
-        }
 
     }
 }
