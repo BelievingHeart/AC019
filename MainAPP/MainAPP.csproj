@@ -75,11 +75,6 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\..\..\..\..\Program Files\Cognex\VisionPro\ReferencedAssemblies\Cognex.VisionPro3D.Display.Controls.dll</HintPath>
     </Reference>
-    <Reference Include="Lib_ActiveX, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\Lib_ActiveX\bin\Debug\Lib_ActiveX.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Windows.Forms" />
@@ -160,9 +155,15 @@
     </COMReference>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\..\I2\下料CCD_I2Helper\SLN\Lib_MeasurementUtilities\Lib_MeasurementUtilities.csproj">
+    <ProjectReference Include="..\Lib_CognexPanels\Lib_CognexPanels.csproj">
+      <Project>{c2610249-4c0c-4bda-88d7-73df6fce75f7}</Project>
+      <Name>Lib_CognexPanels</Name>
+      <Private>True</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\Lib_MeasurementUtilities\Lib_MeasurementUtilities.csproj">
       <Project>{2e9f578a-dfce-4456-91fb-abffaab3d7d0}</Project>
       <Name>Lib_MeasurementUtilities</Name>
+      <Private>True</Private>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

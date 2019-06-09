@@ -10,7 +10,7 @@ using System.Windows.Media;
 using Cognex.VisionPro;
 using Cognex.VisionPro.PMAlign;
 using Cognex.VisionPro.ToolBlock;
-using Lib_ActiveX;
+using Lib_CognexPanels;
 using Lib_MeasurementUtilities;
 
 namespace MainAPP
@@ -68,17 +68,7 @@ namespace MainAPP
             _resultCategories = resultCategories;
         }
 
-        private async void LeiSaiOnTriggered(object sender, EventArgs e)
-        {
-            var result = await Task.Run(() => RunBlock());
-            await SubmitResultAsync(result);
 
-            _btnRunManually.Background = result == ResultType.OK ? Brushes.Green : result == ResultType.NG ? Brushes.Red : Brushes.Yellow;
-            // refresh display
-            RefreshDisplay();
-            // Log measurements
-            LogMeasurements();
-        }
 
         private async Task SubmitResultAsync(ResultType result)
         {
@@ -92,23 +82,7 @@ namespace MainAPP
             }
         }
 
-        private void BtnRunOnClick(object sender, RoutedEventArgs e)
-        {
-            ResultType result = RunBlock();
-            // show result
-            _btnRunManually.Background = result == ResultType.OK ? Brushes.Green : result == ResultType.NG ? Brushes.Red : Brushes.Yellow;
-            // refresh display
-            RefreshDisplay();
-            // Log measurements
-            LogMeasurements();
-        }
-
-        private void LogMeasurements()
-        {
-            _dataLogger.WriteLine(_toolBlock, "", "Wone", "Wtwo", "Wthree", "L");
-            _dataLogger.CleanOutdatedFiles();
-        }
-
+ 
         private void RefreshDisplay()
         {
             _recordDisplay.Record = _toolBlock.CreateLastRunRecord().SubRecords["CogIPOneImageTool1.OutputImage"];
@@ -163,6 +137,36 @@ namespace MainAPP
             }
             Hide();
         }
+
+        private async void LeiSaiOnTriggered(object sender, EventArgs e)
+        {
+            var result = await Task.Run(() => RunBlock());
+            await SubmitResultAsync(result);
+
+            _btnRunManually.Background = result == ResultType.OK ? Brushes.Green : result == ResultType.NG ? Brushes.Red : Brushes.Yellow;
+            // refresh display
+            RefreshDisplay();
+            // Log measurements
+            LogMeasurements();
+        }
+
+        private void BtnRunOnClick(object sender, RoutedEventArgs e)
+        {
+            ResultType result = RunBlock();
+            // show result
+            _btnRunManually.Background = result == ResultType.OK ? Brushes.Green : result == ResultType.NG ? Brushes.Red : Brushes.Yellow;
+            // refresh display
+            RefreshDisplay();
+            // Log measurements
+            LogMeasurements();
+        }
+
+        private void LogMeasurements()
+        {
+            _dataLogger.WriteLine(_toolBlock, "", "Wone", "Wtwo", "Wthree", "L");
+            _dataLogger.CleanOutdatedFiles();
+        }
+
     }
 
     public enum ResultCategories

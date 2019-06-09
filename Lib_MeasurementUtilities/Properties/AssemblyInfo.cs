@@ -5,11 +5,11 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("Lib_ActiveX")]
+[assembly: AssemblyTitle("Lib_MeasurementUtilities")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("Lib_ActiveX")]
+[assembly: AssemblyProduct("Lib_MeasurementUtilities")]
 [assembly: AssemblyCopyright("Copyright ©  2019")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
@@ -20,7 +20,7 @@ using System.Runtime.InteropServices;
 [assembly: ComVisible(false)]
 
 // The following GUID is for the ID of the typelib if this project is exposed to COM
-[assembly: Guid("d6301bb5-32ec-4ea7-9615-6bbe2d8250d1")]
+[assembly: Guid("2f1a4f38-5542-4f98-8f3c-a9abe0cded9a")]
 
 // Version information for an assembly consists of the following four values:
 //

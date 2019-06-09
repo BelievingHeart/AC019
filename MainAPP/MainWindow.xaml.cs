@@ -17,6 +17,7 @@ using Cognex.VisionPro.ImageProcessing;
 using Cognex.VisionPro.ToolBlock;
 //using CognexImageFile;
 using Lib_ActiveX;
+using Lib_CognexPanels;
 using Lib_MeasurementUtilities;
 
 namespace MainAPP
